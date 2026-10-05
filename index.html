@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetSecure</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <span class="brand-title">
+                NETSECURE <span class="brand-accent">LAB</span>
+            </span>      
+        </div>
+
+        <div class="nav-actions">
+            <div class="nav-badge">
+                <span class="pulse-dot"></span>
+                <span class="status-text">ENGINE ONLINE</span>
+            </div>
+            <button class="btn-login" id="login-btn">
+                <i class="fa-solid fa-lock"></i> Portal Login
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="dashboard-container">
+
+        <!--  ALERT BANNER -->
+    <div id="alertBanner" class="alert-banner hidden">
+        <i id="alertIcon" class="fa-solid fa-circle-exclamation"></i>
+        <span id="alertMessage">System message will appear here.</span>
+        <button class="alert-close" onclick="dismissAlert()">&times;</button>
+    </div>
+
+        <!-- INPUT PANEL -->
+        <section class="card input-card">
+            <div class="card-header">
+                <h2>Target Reconnaissance</h2>
+                <p>Specify an IP target and port parameters to trigger an Nmap scan</p>
+            </div>
+            
+            <form id="scanForm" class="scan-form">
+                <div class="form-group">
+                    <label for="targetIp">Target IP</label>
+                    <input 
+                        type="text" 
+                        id="targetIp"
+                        name="targetIp" 
+                        placeholder="e.g. 192.168.1.1" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="portRange">Port Range</label>
+                    <input 
+                        type="text" 
+                        id="portRange"
+                        name="portRange" 
+                        placeholder="e.g. 1-65535 or 22,80,443" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="scanArguments">Scan Flags</label>
+                    <input 
+                        type="text" 
+                        id="scanArguments"
+                        name="scanArguments" 
+                        value="-sT -sV -Pn" 
+                        readonly
+                    >
+                </div>
+
+                <button type="submit" class="btn-launch">
+                    <i class="fa-solid fa-rocket"></i> Launch Recon Scan
+                </button>
+            </form>
+        </section>
+
+        <!-- KPI METRICS GRID -->
+        <section class="kpi-grid">
+            <div class="card kpi-card">
+                <span class="kpi-label">Active Host</span>
+                <span class="kpi-value" id="kpiTarget">127.0.0.1</span>
+            </div>
+            <div class="card kpi-card">
+                <span class="kpi-label">Open Ports</span>
+                <span class="kpi-value highlight-green" id="kpiOpenPorts">0</span>
+            </div>
+            <div class="card kpi-card">
+                <span class="kpi-label">Primary Service</span>
+                <span class="kpi-value" id="kpiService">HTTP / SSH</span>
+            </div>
+            <div class="card kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-label">Threat Assessment</span>
+                    <span class="threat-text" id="threatText">Low</span>
+                </div>
+
+                <!--RISK BAR-->
+                <div class="threat-bar">
+                    <div class="threat-segment low active"></div>
+                    <div class="threat-segment medium"></div>
+                    <div class="threat-segment high"></div>
+                </div>
+           
+            </div>
+        </section>
+
+        <!-- RECONNAISSANCE FEED TABLE -->
+        <section class="card table-card">
+            <div class="card-header flex-between">
+                <div>
+                    <h2>Reconnaissance Feed</h2>
+                    <p>Real-time telemetry retrieved from SQLite backend database.</p>
+                </div>
+                <button class="btn-refresh" id="refreshBtn">
+                    <i class="fa-solid fa-rotate-right"></i>Refresh Data
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Target IP</th>
+                            <th>Port</th>
+                            <th>State</th>
+                            <th>Service</th>
+                            <th>Product</th>
+                            <th>Version</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Scan rows will be rendered here by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+</body>
+</html>
