@@ -37,4 +37,4 @@ pip install fastapi uvicorn python-nmap pyfiglet
 
 ### Start the FastAPI backend server:
 
-uvicorn main:app --reload
+uvicorn scanner:app --reload
